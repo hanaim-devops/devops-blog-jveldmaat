@@ -1,5 +1,5 @@
 # Summary
 
 - [Home](./README.md)
-- [Dev blog](./dev-blog-name-in-kebab-case/README.md)
+- [Dev blog](./alibaba-cloud-file-storage-in-microservices/README.md)
 - [Onderzoeksplan](./onderzoeksplan.md)
