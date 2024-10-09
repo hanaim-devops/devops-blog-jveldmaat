@@ -56,4 +56,6 @@ Omdat het voor ons team van belang is dat we een DevOps tool kiezen die geïnteg
 
 ## Bronnen
 
-ChatGPT - Onderzoek naar Alibaba Cloud. (n.d.). ChatGPT. [ChatGPT gesprek](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
+- ChatGPT - Onderzoek naar Alibaba Cloud. (n.d.). ChatGPT. [ChatGPT gesprek](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
+- Hbo-I. (n.d.). ICT Research Methods — Methods Pack for research in ICT. ICT Research Methods. [ICT Research Methods](https://ictresearchmethods.nl/)
+- Alibaba Cloud. (n.d.). Alibaba Cloud File Storage. Alibaba Cloud. [Alibaba Cloud Docs](https://www.alibabacloud.com/product/nas)
