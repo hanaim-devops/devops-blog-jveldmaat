@@ -35,10 +35,10 @@ Traditionele opslagoplossingen, zoals fysieke NAS-systemen of on-premise storage
 
 Alibaba Cloud File Storage biedt enkele duidelijke voordelen ten opzichte van traditionele file storage-oplossingen:
 
-Automatische schaalbaarheid: Terwijl traditionele opslag vaak op vaste capaciteit draait, kun je bij Alibaba Cloud File Storage vrijwel onbeperkt schalen zonder de noodzaak om hardware-upgrades uit te voeren.
-Eenvoudige integratie met cloud-native tools: Alibaba Cloud File Storage is volledig geïntegreerd met Alibaba's cloud ecosysteem. Dit maakt het gemakkelijk om opslag te beheren via geautomatiseerde workflows, zoals Kubernetes of DevOps CI/CD-pipelines.
-Lagere onderhoudskosten: Aangezien je geen fysieke infrastructuur hoeft te onderhouden, elimineert het gebruik van cloud-opslag veel van de overheadkosten en inspanningen die gepaard gaan met traditionele systemen.
-Betere toegankelijkheid en samenwerking: In een traditionele setup kunnen microservices die over verschillende geografische locaties draaien, beperkte toegang hebben tot on-premise storage. Met cloud-opslag, zoals Alibaba Cloud File Storage, kunnen services overal ter wereld veilig toegang krijgen tot dezelfde data.
+- Automatische schaalbaarheid: Terwijl traditionele opslag vaak op vaste capaciteit draait, kun je bij Alibaba Cloud File Storage vrijwel onbeperkt schalen zonder de noodzaak om hardware-upgrades uit te voeren.
+- Eenvoudige integratie met cloud-native tools: Alibaba Cloud File Storage is volledig geïntegreerd met Alibaba's cloud ecosysteem. Dit maakt het gemakkelijk om opslag te beheren via geautomatiseerde workflows, zoals Kubernetes of DevOps CI/CD-pipelines.
+- Lagere onderhoudskosten: Aangezien je geen fysieke infrastructuur hoeft te onderhouden, elimineert het gebruik van cloud-opslag veel van de overheadkosten en inspanningen die gepaard gaan met traditionele systemen.
+- Betere toegankelijkheid en samenwerking: In een traditionele setup kunnen microservices die over verschillende geografische locaties draaien, beperkte toegang hebben tot on-premise storage. Met cloud-opslag, zoals Alibaba Cloud File Storage, kunnen services overal ter wereld veilig toegang krijgen tot dezelfde data.
 
 ### Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?
 
@@ -55,11 +55,11 @@ Als je al een microservices-architectuur hebt draaien binnen Alibaba Cloud, is h
 
 Mocht je geen Kubernetes cluster in Alibaba Cloud hebben, dan kun je Alibaba Cloud File Storage ook integreren met andere cloud-native tools zoals Docker Swarm of Apache Mesos. Het proces is vergelijkbaar, maar vereist mogelijk enkele aanpassingen afhankelijk van de gebruikte tooling. Dit kun je doen door een NAS-bestandssysteem aan te maken en deze te mounten op je container-gebaseerde omgeving. Via een configuratiebestand kun je verbinding maken met de NAS-opslag en deze toewijzen aan de services die er toegang toe nodig hebben.
 
-Een voorbeeld van hoe je Alibaba Cloud File Storage kunt integreren met Kubernetes is als volgt:
+Een voorbeeld van hoe je Alibaba Cloud File Storage kunt integreren met Kubernetes is door middel van het mounten op een volume en het toewijzen van Persistent Volume Claims (PVCs) aan je services. Hieronder volgt een stapsgewijze handleiding met voorbeeldcode:
 
 Als eerste moet je een Alibaba Cloud File Storage-volume aanmaken. Dit kan het makkelijkst via de Alibaba Cloud-console. Maak een NAS-bestandssyteem aan in de gewenste regio en zorg dat je een VPC selecteert die wordt gebruikt door je Kubernetes-cluster. Dit volume kan vervolgens worden gemount op je Kubernetes-cluster. Zorg er wel voor dat je de NAS-bestandssysteem-ID en het NAS-mountpunt noteert. (Bijvoorbeeld: 0123456789 en 0123456789.ap-southeast-1.nas.aliyuncs.com)
 
-Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met de Alibaba Cloud Kubernetes Service (ACK), kun je eenvoudig je cluster beheren via de ACK-console of de kubectl CLI-tool. Deze tool heeft ook automatisch toegang tot de Container Storage Interface (CSI) plugin voor Alibaba Cloud File Storage. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. Mocht je geen ACK-cluster hebben, dan kun je de volgende handleiding van Alibaba Cloud gebruiken om een NAS file system te mounten op je [self-managed Kubernetes cluster](https://www.alibabacloud.com/help/en/nas/user-guide/mount-a-nas-file-system-on-a-self-managed-kubernetes-cluster/). CSI-plugin handmatig installeren via de [Alibaba CSI github](https://github.com/kubernetes-sigs/alibaba-cloud-csi-driver).
+Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met de Alibaba Cloud Kubernetes Service (ACK), kun je eenvoudig je cluster beheren via de ACK-console of de kubectl CLI-tool. Deze tool heeft ook automatisch toegang tot de Container Storage Interface (CSI) plugin voor Alibaba Cloud File Storage. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. Mocht je geen ACK-cluster hebben, dan kun je de volgende handleiding van Alibaba Cloud gebruiken om een NAS file system te mounten op je [self-managed Kubernetes cluster](https://www.alibabacloud.com/help/en/nas/user-guide/mount-a-nas-file-system-on-a-self-managed-kubernetes-cluster/). De CSI-plugin kun je handmatig installeren via de [Alibaba CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-manually-installing-the-csi-plug-in).
 
 Een voorbeeld hiervan kun je hieronder vinden:
 
