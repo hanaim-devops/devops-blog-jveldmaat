@@ -10,12 +10,12 @@
 - [Alibaba Cloud File Storage in Microservices](#alibaba-cloud-file-storage-in-microservices)
   - [Inhoudsopgave](#inhoudsopgave)
   - [Bronnen](#bronnen)
-    - [Conclusie](#conclusie)
   - [Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur](#het-toepassen-van-alibaba-cloud-file-storage-in-een-self-managed-microservices-architectuur)
     - [Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?](#wat-zijn-de-belangrijkste-kenmerken-en-mogelijkheden-van-alibaba-cloud-file-storage)
     - [Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?](#welke-voordelen-biedt-alibaba-cloud-file-storage-ten-opzichte-van-traditionele-file-storage)
     - [Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?](#welke-best-practices-zijn-er-voor-het-gebruik-van-alibaba-cloud-file-storage-in-een-microservices-architectuur)
     - [Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?](#hoe-kan-alibaba-cloud-file-storage-worden-geïntegreerd-in-een-al-bestaande-self-managed-microservices-architectuur)
+    - [Conclusie](#conclusie)
 
 ## Bronnen
 
@@ -25,12 +25,11 @@
 - Access a NAS file system from a data center by using a NAT gateway - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba NAS using NAT](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
 - Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba Cloud NAS CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
 - What is a RAM user? - Resource Access Management - Alibaba Cloud Documentation Center. (n.d.). [Resource Access Manager](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
-
-### Conclusie
-
-Alibaba Cloud File Storage biedt een krachtige, schaalbare en veilige oplossing voor bedrijven die werken met een microservices-architectuur. Door de naadloze integratie met cloud-native tools zoals Kubernetes en de vele voordelen ten opzichte van traditionele opslagoplossingen, is het een goede keuze om te overwegen. Hoewel het in een microservices-architectuur enige planning en configuratie vereist, biedt Alibaba Cloud File Storage de flexibiliteit en betrouwbaarheid die nodig zijn om succesvol te schalen in de cloud. Of je nu net begint met microservices of je huidige architectuur naar de cloud wilt verplaatsen, Alibaba Cloud File Storage biedt de flexibiliteit en betrouwbaarheid die je nodig hebt om succesvol te schalen.
+- Introduction to Apsara File Storage NAS - Alibaba Cloud Document Center. (n.d.).[Alibaba Learning Path](https://www.alibabacloud.com/help/en/nas/)
 
 ## Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur
+
+Voor ons onderzoek hebben we gekeken naar hoe je Alibaba Cloud File Storage kunt toepassen in een self-managed microservices-architectuur. Hierbij hebben we gekeken naar de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage, de voordelen ten opzichte van traditionele file storage, best practices voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur, en hoe je Alibaba Cloud File Storage kunt integreren in een al bestaande self-managed microservices-architectuur.
 
 In de wereld van moderne softwareontwikkeling spelen cloud-native applicaties en microservices-architecturen een cruciale rol. Bedrijven verplaatsen hun infrastructuur steeds meer naar de cloud vanwege de flexibiliteit, schaalbaarheid en kostenefficiëntie. Een belangrijk aspect van deze transformatie is bestandsopslag: hoe beheer je grote hoeveelheden data die toegankelijk moeten zijn voor meerdere services, verspreid over verschillende omgevingen?
 
@@ -38,14 +37,16 @@ Hier komt Alibaba Cloud File Storage in beeld. Als een van de belangrijkste prod
 
 ### Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?
 
-Alibaba Cloud File Storage, ook wel bekend als Alibaba Cloud NAS (Network Attached Storage), biedt gedeelde bestandsopslag die toegankelijk is vanuit verschillende compute-resources zoals Kubernetes-pods, ECI (Elastic Container Instances) en VM’s. Dit maakt het bij uitstek geschikt voor microservices-architecturen, waar verschillende services gelijktijdig toegang moeten hebben tot gedeelde gegevens.
+Alibaba Cloud File Storage, ook wel bekend als Alibaba Cloud NAS (Network Attached Storage), biedt gedeelde bestandsopslag die toegankelijk is vanuit verschillende compute-resources zoals Kubernetes-pods, ECI (Elastic Container Instances) en VM’s. Dit maakt het bij uitstek geschikt voor microservices-architecturen, waar verschillende services gelijktijdig toegang moeten hebben tot gedeelde gegevens. Daarnaast is het mogelijk om Alibaba Cloud File Storage te integreren binnen zowel een al bestaande self-managed Kubernetes cluster als bij een AKS cluster die bij Alibaba Cloud is gehost.
 
 Belangrijke kenmerken van Alibaba Cloud File Storage zijn:
 
 - Schaalbaarheid: De opslag groeit automatisch mee met je behoeften. Dit betekent dat je je geen zorgen hoeft te maken over de capaciteit, zelfs niet bij snelle uitbreiding van je microservices.
-- Flexibele toegang: Alibaba Cloud File Storage ondersteunt meerdere toegangspunten, zoals NFS (Network File System), wat het mogelijk maakt om eenvoudig gedeelde opslag in te zetten.
-- Hoge beschikbaarheid en betrouwbaarheid: Met 99,9999999% (9-nines) gegevensduurzaamheid, biedt het een hoge mate van zekerheid dat je data altijd toegankelijk is, zelfs tijdens onderhoud of storingen.
+- Flexibele toegang: Alibaba Cloud File Storage ondersteunt meerdere toegangspunten, zoals NFS (Network File System), wat het mogelijk maakt om eenvoudig gedeelde opslag in te zetten en de Container Storage Interface (CSI) plug-in voor Kubernetes.
+- Hoge betrouwbaarheid: Met 99,9999999% (9-nines) databetrouwbaarheid, biedt het een hoge mate van zekerheid dat je data correct is.
+- Hoge beschikbaarheid: Alibaba Cloud File Storage is ontworpen om hoge beschikbaarheid te bieden, met een SLA van 99,9% uptime.
 - Beveiliging: Door functies zoals automatische versleuteling van gegevens tijdens transport en rust, voldoet Alibaba Cloud File Storage aan strikte beveiligingsnormen, wat belangrijk is voor microservices die gevoelige informatie verwerken.
+- Lage kosten: Door het pay-as-you-go-model van Alibaba Cloud, betaal je alleen voor wat je gebruikt, waardoor je kosten laag blijven.
 
 ### Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?
 
@@ -248,3 +249,11 @@ spec:
 ```
 
 Door deze eenvoudige stappen te volgen, kun je Alibaba Cloud File Storage snel en efficiënt integreren in je bestaande microservices-infrastructuur.
+
+### Conclusie
+
+Alibaba Cloud File Storage biedt een krachtige, schaalbare en veilige oplossing voor bedrijven die werken met een microservices-architectuur. Doordat je dit in combinatie kan gebruiken met zowel een self-managed kubernetes cluster als met een Alibaba ACK cluster kun je dit op verschillende manieren toepassen die bij je gewenste situatie passen. Door de flexibiliteit en integratiemogelijkheden van Alibaba Cloud File Storage kun je eenvoudig gedeelde bestandsopslag implementeren in je microservices-architectuur, zonder dat je je zorgen hoeft te maken over schaalbaarheid, betrouwbaarheid of beveiliging. Door de best practices te volgen en de integratiestappen te volgen, kun je snel aan de slag met het gebruik van Alibaba Cloud File Storage in je eigen microservices-architectuur. Doordat Alibaba Cloud File Storage gebruik maakt van RAM en Policy kun je de toegang makkelijk beheren en beveiligen. Tevens zorg je met de CSI plug-in voor naadloze integratie bij je al bestaande systeem.
+
+```
+
+```yaml
