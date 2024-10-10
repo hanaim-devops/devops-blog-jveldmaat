@@ -11,6 +11,8 @@
 - Release notes for csi-plugin - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (n.d.). [Alibaba csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
 - Connect to an ACK cluster by using kubectl - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (n.d.). [Alibaba ACK guide](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl)
 - Access a NAS file system from a data center by using a NAT gateway - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba NAS using NAT](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
+- Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba Cloud NAS CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
+- What is a RAM user? - Resource Access Management - Alibaba Cloud Documentation Center. (n.d.). [Resource Access Manager](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
 
 ## Het toepassen van Alibaba Cloud File Storage in een microservices-architectuur
 
@@ -49,19 +51,134 @@ Gebruik van Persistent Volumes (PVs) en Persistent Volume Claims (PVCs) in Kuber
 Monitoring en optimalisatie: Zorg ervoor dat je de prestaties van je cloud-opslag monitort. Alibaba biedt tools zoals CloudMonitor waarmee je opslaggebruik, lees-/schrijfsnelheden, en fouten kunt bijhouden.
 Beveiliging van gevoelige data: Zorg ervoor dat je versleuteling inschakelt voor gevoelige gegevens, en beperk de toegang via role-based access control (RBAC) of IAM policies om ongeoorloofde toegang te voorkomen.
 
-### Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande microservices-architectuur?
+### Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?
 
 Als je al een microservices-architectuur hebt draaien binnen Alibaba Cloud, is het relatief eenvoudig om Alibaba Cloud File Storage te integreren. Met behulp van Kubernetes CSI-drivers kun je Alibaba Cloud File Storage eenvoudig als Persistent Volume (PV) mounten binnen je bestaande Kubernetes-cluster. Dit stelt je in staat om gedeelde opslag tussen verschillende microservices te configureren zonder downtime of grote veranderingen in je huidige infrastructuur.
 
-Mocht je geen Kubernetes cluster in Alibaba Cloud hebben, dan kun je Alibaba Cloud File Storage ook integreren met andere cloud-native tools zoals Docker Swarm of Apache Mesos. Het proces is vergelijkbaar, maar vereist mogelijk enkele aanpassingen afhankelijk van de gebruikte tooling. Dit kun je doen door een NAS-bestandssysteem aan te maken en deze te mounten op je container-gebaseerde omgeving. Via een configuratiebestand kun je verbinding maken met de NAS-opslag en deze toewijzen aan de services die er toegang toe nodig hebben.
+Mocht je geen Kubernetes cluster in Alibaba Cloud hebben, dan kun je Alibaba Cloud File Storage ook integreren met een self-managed Kubernetes cluster. Het proces is vergelijkbaar, maar vereist enkele aanpassingen afhankelijk van de gebruikte tooling.
 
-Een voorbeeld van hoe je Alibaba Cloud File Storage kunt integreren met Kubernetes is door middel van het mounten op een volume en het toewijzen van Persistent Volume Claims (PVCs) aan je services. Hieronder volgt een stapsgewijze handleiding met voorbeeldcode:
+Een voorbeeld van hoe je Alibaba Cloud File Storage kunt integreren met een self-managed Kubernetes cluster is door middel van het mounten op een volume en het toewijzen van Persistent Volume Claims (PVCs) aan je services. Hiervoor moet je binnen Alibaba Cloud wel een gebruiker aanmaken en gebruikersrechten toewijzen zodat je verbinding kan maken met de managed cloud services van Alibaba Cloud. Hieronder volgen de stappen die je moet ondernemen om Alibaba Cloud File Storage te integreren in je bestaande self-managed microservices-architectuur:
 
-Als eerste moet je een Alibaba Cloud File Storage-volume aanmaken. Dit kan het makkelijkst via de Alibaba Cloud-console. Maak een NAS-bestandssyteem aan in de gewenste regio en zorg dat je een VPC selecteert die wordt gebruikt door je Kubernetes-cluster. Dit volume kan vervolgens worden gemount op je Kubernetes-cluster. Zorg er wel voor dat je de NAS-bestandssysteem-ID en het NAS-mountpunt noteert. (Bijvoorbeeld: 0123456789 en 0123456789.ap-southeast-1.nas.aliyuncs.com)
+Je begint door een Resource Access Management (RAM) gebruiker aan te maken in de Alibaba Cloud-console. Deze gebruiker heeft de juiste rechten nodig om toegang te krijgen tot de Alibaba Cloud File Storage-service. Nadat de gebruiker is aangemaakt moet je een custom policy aanmaken die de nodige rechten toekent aan de gebruiker. Deze policy kan bijvoorbeeld toegang verlenen tot de NAS-service en de nodige acties toestaan, zoals het maken van bestandssystemen en het mounten van volumes (een voorbeeld van de policy staat hieronder aangegeven). Nadat de policy is aangemaakt, koppel je deze aan de RAM-gebruiker en noteer je de AccessKey en SecretKey van de gebruiker. Op basis hiervan kun je een secret aanmaken in je eigen Kubernetes cluster om de gebruiker te authenticeren. Met de volgende commando's kun je een secret aanmaken in Kubernetes:
 
-Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met de Alibaba Cloud Kubernetes Service (ACK), kun je eenvoudig je cluster beheren via de ACK-console of de kubectl CLI-tool. Deze tool heeft ook automatisch toegang tot de Container Storage Interface (CSI) plugin voor Alibaba Cloud File Storage. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. Mocht je geen ACK-cluster hebben, dan kun je de volgende handleiding van Alibaba Cloud gebruiken om een NAS file system te mounten op je [self-managed Kubernetes cluster](https://www.alibabacloud.com/help/en/nas/user-guide/mount-a-nas-file-system-on-a-self-managed-kubernetes-cluster/). De CSI-plugin kun je handmatig installeren via de [Alibaba CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-manually-installing-the-csi-plug-in).
+```bash
+kubectl -n kube-system create secret generic alibaba-cloud-secret --from-literal='access-key-id=<your access key id>' --from-literal='access-key-secret=<your access key secret>'
+```
+
+Als laatste moet je de CSI plug-in installeren. Dit kan met behulp van de volgende commando:
+
+```bash
+onectl addon install csi-plugin
+```
+
+Een voorbeeld code van de policy kan als volgt zijn:
+
+```json
+{
+    "Version": "1",
+    "Statement": [
+        {
+            "Action": [
+                "ecs:AttachDisk",
+                "ecs:DetachDisk",
+                "ecs:DescribeDisks",
+                "ecs:CreateDisk",
+                "ecs:ResizeDisk",
+                "ecs:CreateSnapshot",
+                "ecs:DeleteSnapshot",
+                "ecs:CreateAutoSnapshotPolicy",
+                "ecs:ApplyAutoSnapshotPolicy",
+                "ecs:CancelAutoSnapshotPolicy",
+                "ecs:DeleteAutoSnapshotPolicy",
+                "ecs:DescribeAutoSnapshotPolicyEX",
+                "ecs:ModifyAutoSnapshotPolicyEx",
+                "ecs:AddTags",
+                "ecs:DescribeTags",
+                "ecs:DescribeSnapshots",
+                "ecs:ListTagResources",
+                "ecs:TagResources",
+                "ecs:UntagResources",
+                "ecs:ModifyDiskSpec",
+                "ecs:CreateSnapshot",
+                "ecs:DeleteDisk",
+                "ecs:DescribeInstanceAttribute",
+                "ecs:DescribeInstances"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "nas:DescribeFileSystems",
+                "nas:DescribeMountTargets",
+                "nas:AddTags",
+                "nas:DescribeTags",
+                "nas:RemoveTags",
+                "nas:CreateFileSystem",
+                "nas:DeleteFileSystem",
+                "nas:ModifyFileSystem",
+                "nas:CreateMountTarget",
+                "nas:DeleteMountTarget",
+                "nas:ModifyMountTarget",
+                "nas:TagResources",
+                "nas:SetDirQuota",
+                "nas:EnableRecycleBin",
+                "nas:GetRecycleBinAttribute"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "oss:PutBucket",
+                "oss:GetObjectTagging",
+                "oss:ListBuckets",
+                "oss:PutBucketTags",
+                "oss:GetBucketTags",
+                "oss:PutBucketEncryption",
+                "oss:GetBucketInfo"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}
+```
+
+Nadat de gebruiker is aangemaakt kun je bezig met een Alibaba Cloud File Storage-volume aanmaken. Dit kan het makkelijkst via de Alibaba Cloud-console. Maak een NAS-bestandssyteem aan in de gewenste regio en zorg dat je een VPC selecteert die wordt gebruikt door je Kubernetes-cluster. Dit volume kan vervolgens worden gemount op je Kubernetes-cluster. Zorg er wel voor dat je de NAS-bestandssysteem-ID en het NAS-mountpunt noteert. (Bijvoorbeeld: 0123456789 en 0123456789.ap-southeast-1.nas.aliyuncs.com)
+
+Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met je self-managed cluster kun je de Container Storage Interface (CSI) plug-in van Alibaba Cloud gebruiken. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. In je eigen configuratie moet je nog het één en ander aanpassen om uiteindelijk te kunnen verbinden met je eigen NAS-bestandssysteem. Je moet in je Deployment-configuratie de omgevingsvariabelen ACCESS_KEY_ID en ACCESS_KEY_SECRET toevoegen die verwijzen naar de secret die je wilt toepassen op je mount. Omdat je gebruik maakt van de CSI plug-in hoef je verder geen authenticatie toe te passen in je PVC-configuratie. De RAM-user wordt namelijk via de Kubernetes Secret aan je CSI-driver gekoppeld.
 
 Een voorbeeld hiervan kun je hieronder vinden:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csi-alibaba-cloud
+  namespace: kube-system
+spec:
+  containers:
+  - name: nasplugin
+    image: registry.cn-hangzhou.aliyuncs.com/acs/csi-plugin:<version>
+    env:
+    - name: ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: alibaba-cloud-secret
+          key: accessKeyId
+    - name: ACCESS_KEY_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: alibaba-cloud-secret
+          key: accessKeySecret
+```
 
 ```yaml
 apiVersion: v1
@@ -73,13 +190,13 @@ spec:
     storage: 100Gi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
   csi:
     driver: nasplugin.csi.alibabacloud.com
-    volumeHandle: <NAS-file-system-ID> # Bijvoorbeeld: 0123456789
+    volumeHandle: nas-volume-handle
     volumeAttributes:
-      mountTargetDomain: <NAS-mount-point> # Bijvoorbeeld: 0123456789.ap-southeast-1.nas.aliyuncs.com
-  storageClassName: alibaba-nas
+      server: <nas-id>.cn-hangzhou.nas.aliyuncs.com  # DNS-mountpoint
+      path: <nas-file-system-path>    # Pad in het NAS-bestandssysteem
+  persistentVolumeReclaimPolicy: Retain
 ```
 
 Stap 3: Maak Persistent Volume Claims (PVCs) aan voor je individuele microservices. Een voorbeeld van een PVC-configuratie kan zijn:
@@ -95,7 +212,7 @@ spec:
   resources:
     requests:
       storage: 100Gi
-  storageClassName: alibaba-nas
+  volumeName: alibaba-nas-pv
 ```
 
 Nadat je de PVCs hebt aangemaakt pas je de Kubernetes deployment-configuraties aan om de PVC’s te gebruiken als mount points voor de services die toegang nodig hebben tot de opslag. Een voorbeeld van een pod-configuratie die gebruik maakt van de PVC kan zijn:
@@ -104,16 +221,16 @@ Nadat je de PVCs hebt aangemaakt pas je de Kubernetes deployment-configuraties a
 apiVersion: v1
 kind: Pod
 metadata:
-  name: alibaba-nas-pod
+  name: pod-using-alibaba-nas
 spec:
   containers:
   - name: app-container
     image: nginx
     volumeMounts:
-    - name: alibaba-nas-storage
-      mountPath: /usr/share/nginx/html
+    - name: nas-storage
+      mountPath: "/mnt/nas"
   volumes:
-  - name: alibaba-nas-storage
+  - name: nas-storage
     persistentVolumeClaim:
       claimName: alibaba-nas-pvc
 ```

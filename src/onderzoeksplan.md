@@ -14,7 +14,7 @@ Verzin o.a. een titel voor je blog, pas de folder naam hier op aan en gebruik [k
     - [Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?](#wat-zijn-de-belangrijkste-kenmerken-en-mogelijkheden-van-alibaba-cloud-file-storage)
     - [Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van een traditionele file storage?](#welke-voordelen-biedt-alibaba-cloud-file-storage-ten-opzichte-van-een-traditionele-file-storage)
     - [Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?](#welke-best-practices-zijn-er-voor-het-gebruik-van-alibaba-cloud-file-storage-in-een-microservices-architectuur)
-    - [Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande microservices-architectuur?](#hoe-kan-alibaba-cloud-file-storage-worden-geïntegreerd-in-een-al-bestaande-microservices-architectuur)
+    - [Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?](#hoe-kan-alibaba-cloud-file-storage-worden-geïntegreerd-in-een-al-bestaande-self-managed-microservices-architectuur)
   - [Bronnen](#bronnen)
 
 ## Aanleiding en achtergrondinformatie
@@ -32,7 +32,7 @@ Hierbij zal ik de volgende deelvragen beantwoorden:
 - Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?
 - Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van een traditionele file storage?
 - Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?
-- Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande microservices-architectuur?
+- Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?
 
 ## Methoden en technieken
 
@@ -50,7 +50,7 @@ Tijdens deze deelvraag wil ik nader onderzoeken wat de voordelen zijn van het im
 
 Om erachter te komen hoe je Alibaba Cloud File Storage het best kan toepassin in een daadwerkelijke case wil ik met deze deelvraag daar verder naar kijken. Hiervoor zal ik gebruik maken van Case Study en Literature Study.
 
-### Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande microservices-architectuur?
+### Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?
 
 Omdat het voor ons team van belang is dat we een DevOps tool kiezen die geïntegreerd kan worden in onze huidige oplossing moet er gekeken worden naar hoe Alibaba Cloud File Storage hierbij past. Daarom is het doel van deze deelvraag om hier naar te kijken, dit zal tevens een voorbeeld geven hoe je dit uiteindelijk binnen je eigen project kan toepassen. Hiervoor zal ik gebruik maken van een Case Study om te kijken hoe Alibaba Cloud File Storage geïntegreerd kan worden in een al bestaande microservices-architectuur.
 
