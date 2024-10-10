@@ -155,7 +155,7 @@ Nadat de gebruiker is aangemaakt kun je bezig met een Alibaba Cloud File Storage
 
 Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met je self-managed cluster kun je de Container Storage Interface (CSI) plug-in van Alibaba Cloud gebruiken. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. In je eigen configuratie moet je nog het één en ander aanpassen om uiteindelijk te kunnen verbinden met je eigen NAS-bestandssysteem. Je moet in je Deployment-configuratie de omgevingsvariabelen ACCESS_KEY_ID en ACCESS_KEY_SECRET toevoegen die verwijzen naar de secret die je wilt toepassen op je mount. Omdat je gebruik maakt van de CSI plug-in hoef je verder geen authenticatie toe te passen in je PVC-configuratie. De RAM-user wordt namelijk via de Kubernetes Secret aan je CSI-driver gekoppeld.
 
-Een voorbeeld hiervan kun je hieronder vinden:
+Voorbeeld configuratie code kun je hieronder vinden:
 
 ```yaml
 apiVersion: apps/v1
