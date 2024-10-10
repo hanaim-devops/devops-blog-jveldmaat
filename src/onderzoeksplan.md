@@ -25,7 +25,9 @@ Voor weekopdracht 6 van de minor DevOps is het de bedoeling om een onderzoek te 
 
 Mijn onderzoeksvraag luidt als volgt:
 
-- Hoe kun je Alibaba Cloud File Storage toepassen in een microservices-architectuur?
+- Hoe kun je Alibaba Cloud File Storage toepassen in een self-managed microservices-architectuur?
+
+De reden dat hierbij self-managed expliciet is genoemd is omdat Alibaba Cloud ook een eigen Container Service for Kubernetes (ACK) heeft. Hierbij is het mogelijk om een Kubernetes cluster te beheren in de cloud. Echter, voor ons project is het van belang dat we een self-managed oplossing hebben. Daarom is het van belang om te kijken hoe Alibaba Cloud File Storage geïntegreerd kan worden in een self-managed microservices-architectuur.
 
 Hierbij zal ik de volgende deelvragen beantwoorden:
 
