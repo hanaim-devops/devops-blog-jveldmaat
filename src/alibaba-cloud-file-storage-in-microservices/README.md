@@ -5,14 +5,30 @@
 *[Jesse Veldmaat, oktober 2024.](https://github.com/hanaim-devops/blog-student-naam)*
 <hr/>
 
+## Inhoudsopgave
+
+- [Alibaba Cloud File Storage in Microservices](#alibaba-cloud-file-storage-in-microservices)
+  - [Inhoudsopgave](#inhoudsopgave)
+  - [Bronnen](#bronnen)
+    - [Conclusie](#conclusie)
+  - [Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur](#het-toepassen-van-alibaba-cloud-file-storage-in-een-self-managed-microservices-architectuur)
+    - [Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?](#wat-zijn-de-belangrijkste-kenmerken-en-mogelijkheden-van-alibaba-cloud-file-storage)
+    - [Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?](#welke-voordelen-biedt-alibaba-cloud-file-storage-ten-opzichte-van-traditionele-file-storage)
+    - [Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?](#welke-best-practices-zijn-er-voor-het-gebruik-van-alibaba-cloud-file-storage-in-een-microservices-architectuur)
+    - [Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?](#hoe-kan-alibaba-cloud-file-storage-worden-geïntegreerd-in-een-al-bestaande-self-managed-microservices-architectuur)
+
 ## Bronnen
 
-- ChatGPT - Onderzoek naar Alibaba Cloud. (n.d.). ChatGPT. [ChatGPT gesprek](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
-- Release notes for csi-plugin - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (n.d.). [Alibaba csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
+- ChatGPT - Onderzoek naar Alibaba Cloud. (10-10-2024). ChatGPT. [ChatGPT gesprek](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
+- Release notes for csi-plugin - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (8-10-2024). [Alibaba csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
 - Connect to an ACK cluster by using kubectl - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (n.d.). [Alibaba ACK guide](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl)
 - Access a NAS file system from a data center by using a NAT gateway - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba NAS using NAT](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
 - Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba Cloud NAS CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
 - What is a RAM user? - Resource Access Management - Alibaba Cloud Documentation Center. (n.d.). [Resource Access Manager](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
+
+### Conclusie
+
+Alibaba Cloud File Storage biedt een krachtige, schaalbare en veilige oplossing voor bedrijven die werken met een microservices-architectuur. Door de naadloze integratie met cloud-native tools zoals Kubernetes en de vele voordelen ten opzichte van traditionele opslagoplossingen, is het een goede keuze om te overwegen. Hoewel het in een microservices-architectuur enige planning en configuratie vereist, biedt Alibaba Cloud File Storage de flexibiliteit en betrouwbaarheid die nodig zijn om succesvol te schalen in de cloud. Of je nu net begint met microservices of je huidige architectuur naar de cloud wilt verplaatsen, Alibaba Cloud File Storage biedt de flexibiliteit en betrouwbaarheid die je nodig hebt om succesvol te schalen.
 
 ## Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur
 
@@ -153,7 +169,7 @@ Een voorbeeld code van de policy kan als volgt zijn:
 
 Nadat de gebruiker is aangemaakt kun je bezig met een Alibaba Cloud File Storage-volume aanmaken. Dit kan het makkelijkst via de Alibaba Cloud-console. Maak een NAS-bestandssyteem aan in de gewenste regio en zorg dat je een VPC selecteert die wordt gebruikt door je Kubernetes-cluster. Dit volume kan vervolgens worden gemount op je Kubernetes-cluster. Zorg er wel voor dat je de NAS-bestandssysteem-ID en het NAS-mountpunt noteert. (Bijvoorbeeld: 0123456789 en 0123456789.ap-southeast-1.nas.aliyuncs.com)
 
-Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met je self-managed cluster kun je de Container Storage Interface (CSI) plug-in van Alibaba Cloud gebruiken. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. In je eigen configuratie moet je nog het één en ander aanpassen om uiteindelijk te kunnen verbinden met je eigen NAS-bestandssysteem. Je moet in je Deployment-configuratie de omgevingsvariabelen ACCESS_KEY_ID en ACCESS_KEY_SECRET toevoegen die verwijzen naar de secret die je wilt toepassen op je mount. Omdat je gebruik maakt van de CSI plug-in hoef je verder geen authenticatie toe te passen in je PVC-configuratie. De RAM-user wordt namelijk via de Kubernetes Secret aan je CSI-driver gekoppeld.
+Verbind via kubectl met je Kubernetes-cluster. Als je bent verbonden met je self-managed cluster kun je de Container Storage Interface (CSI) plug-in van Alibaba Cloud gebruiken. Daarna kun je een Persistent Volume (PV) definiëren dat verwijst naar je Alibaba Cloud File Storage-mount. In je eigen configuratie moet je nog het één en ander aanpassen om uiteindelijk te kunnen verbinden met je eigen NAS-bestandssysteem. Je moet in je Deployment-configuratie de omgevingsvariabelen ACCESS_KEY_ID en ACCESS_KEY_SECRET toevoegen die verwijzen naar de secret die je wilt toepassen op je mount. Omdat je gebruik maakt van de CSI plug-in hoef je verder geen authenticatie toe te passen in je PVC-configuratie. De RAM-user wordt namelijk via de Kubernetes Secret aan je CSI-driver gekoppeld. Wel moet je in je PV-configuratie het volumeHandle aanpassen naar de NAS-volume-handle die je hebt aangemaakt in je Alibaba Cloud-console en deze in je PVC en pod ook aanpassen.
 
 Voorbeeld configuratie code kun je hieronder vinden:
 
@@ -199,8 +215,6 @@ spec:
   persistentVolumeReclaimPolicy: Retain
 ```
 
-Stap 3: Maak Persistent Volume Claims (PVCs) aan voor je individuele microservices. Een voorbeeld van een PVC-configuratie kan zijn:
-
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -214,8 +228,6 @@ spec:
       storage: 100Gi
   volumeName: alibaba-nas-pv
 ```
-
-Nadat je de PVCs hebt aangemaakt pas je de Kubernetes deployment-configuraties aan om de PVC’s te gebruiken als mount points voor de services die toegang nodig hebben tot de opslag. Een voorbeeld van een pod-configuratie die gebruik maakt van de PVC kan zijn:
 
 ```yaml
 apiVersion: v1
@@ -236,7 +248,3 @@ spec:
 ```
 
 Door deze eenvoudige stappen te volgen, kun je Alibaba Cloud File Storage snel en efficiënt integreren in je bestaande microservices-infrastructuur.
-
-### Conclusie
-
-Alibaba Cloud File Storage biedt een krachtige, schaalbare en veilige oplossing voor bedrijven die werken met een microservices-architectuur. Door de naadloze integratie met cloud-native tools zoals Kubernetes en de vele voordelen ten opzichte van traditionele opslagoplossingen, is het een goede keuze om te overwegen. Hoewel het in een microservices-architectuur enige planning en configuratie vereist, biedt Alibaba Cloud File Storage de flexibiliteit en betrouwbaarheid die nodig zijn om succesvol te schalen in de cloud. Of je nu net begint met microservices of je huidige architectuur naar de cloud wilt verplaatsen, Alibaba Cloud File Storage biedt de flexibiliteit en betrouwbaarheid die je nodig hebt om succesvol te schalen.
