@@ -2,24 +2,25 @@
 
 <img src="plaatjes/alibaba_logo.png" width="250" align="right" alt="mdbook logo om weg te halen" title="maar vergeet de alt tekst niet">
 
-*[Jesse Veldmaat, oktober 2024.](https://github.com/hanaim-devops/blog-student-naam)*
+_[Jesse Veldmaat, oktober 2024.](https://github.com/hanaim-devops/blog-student-naam)_
+
 <hr/>
 
 ## Inhoudsopgave
 
 - [Alibaba Cloud File Storage in Microservices](#alibaba-cloud-file-storage-in-microservices)
   - [Inhoudsopgave](#inhoudsopgave)
-  - [Bronnen](#bronnen)
   - [Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur](#het-toepassen-van-alibaba-cloud-file-storage-in-een-self-managed-microservices-architectuur)
     - [Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?](#wat-zijn-de-belangrijkste-kenmerken-en-mogelijkheden-van-alibaba-cloud-file-storage)
     - [Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?](#welke-voordelen-biedt-alibaba-cloud-file-storage-ten-opzichte-van-traditionele-file-storage)
     - [Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?](#welke-best-practices-zijn-er-voor-het-gebruik-van-alibaba-cloud-file-storage-in-een-microservices-architectuur)
     - [Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?](#hoe-kan-alibaba-cloud-file-storage-worden-geïntegreerd-in-een-al-bestaande-self-managed-microservices-architectuur)
     - [Conclusie](#conclusie)
+  - [Bronnen](#bronnen)
 
 ## Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur
 
-Voor ons onderzoek hebben we gekeken naar hoe je Alibaba Cloud File Storage kunt toepassen in een self-managed microservices-architectuur. Hierbij hebben we gekeken naar de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage, de voordelen ten opzichte van traditionele file storage, best practices voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur, en hoe je Alibaba Cloud File Storage kunt integreren in een al bestaande self-managed microservices-architectuur.
+Voor dit onderzoek is gekeken naar hoe je Alibaba Cloud File Storage kunt toepassen in een self-managed microservices-architectuur. Hierbij hebben we gekeken naar de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage, de voordelen ten opzichte van traditionele file storage, best practices voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur, en hoe je Alibaba Cloud File Storage kunt integreren in een al bestaande self-managed microservices-architectuur.
 
 In de wereld van moderne softwareontwikkeling spelen cloud-native applicaties en microservices-architecturen een cruciale rol. Bedrijven verplaatsen hun infrastructuur steeds meer naar de cloud vanwege de flexibiliteit, schaalbaarheid en kostenefficiëntie. Een belangrijk aspect van deze transformatie is bestandsopslag: hoe beheer je grote hoeveelheden data die toegankelijk moeten zijn voor meerdere services, verspreid over verschillende omgevingen?
 
@@ -82,79 +83,73 @@ Een voorbeeld code van de policy kan als volgt zijn:
 
 ```json
 {
-    "Version": "1",
-    "Statement": [
-        {
-            "Action": [
-                "ecs:AttachDisk",
-                "ecs:DetachDisk",
-                "ecs:DescribeDisks",
-                "ecs:CreateDisk",
-                "ecs:ResizeDisk",
-                "ecs:CreateSnapshot",
-                "ecs:DeleteSnapshot",
-                "ecs:CreateAutoSnapshotPolicy",
-                "ecs:ApplyAutoSnapshotPolicy",
-                "ecs:CancelAutoSnapshotPolicy",
-                "ecs:DeleteAutoSnapshotPolicy",
-                "ecs:DescribeAutoSnapshotPolicyEX",
-                "ecs:ModifyAutoSnapshotPolicyEx",
-                "ecs:AddTags",
-                "ecs:DescribeTags",
-                "ecs:DescribeSnapshots",
-                "ecs:ListTagResources",
-                "ecs:TagResources",
-                "ecs:UntagResources",
-                "ecs:ModifyDiskSpec",
-                "ecs:CreateSnapshot",
-                "ecs:DeleteDisk",
-                "ecs:DescribeInstanceAttribute",
-                "ecs:DescribeInstances"
-            ],
-            "Resource": [
-                "*"
-            ],
-            "Effect": "Allow"
-        },
-        {
-            "Action": [
-                "nas:DescribeFileSystems",
-                "nas:DescribeMountTargets",
-                "nas:AddTags",
-                "nas:DescribeTags",
-                "nas:RemoveTags",
-                "nas:CreateFileSystem",
-                "nas:DeleteFileSystem",
-                "nas:ModifyFileSystem",
-                "nas:CreateMountTarget",
-                "nas:DeleteMountTarget",
-                "nas:ModifyMountTarget",
-                "nas:TagResources",
-                "nas:SetDirQuota",
-                "nas:EnableRecycleBin",
-                "nas:GetRecycleBinAttribute"
-            ],
-            "Resource": [
-                "*"
-            ],
-            "Effect": "Allow"
-        },
-        {
-            "Action": [
-                "oss:PutBucket",
-                "oss:GetObjectTagging",
-                "oss:ListBuckets",
-                "oss:PutBucketTags",
-                "oss:GetBucketTags",
-                "oss:PutBucketEncryption",
-                "oss:GetBucketInfo"
-            ],
-            "Resource": [
-                "*"
-            ],
-            "Effect": "Allow"
-        }
-    ]
+  "Version": "1",
+  "Statement": [
+    {
+      "Action": [
+        "ecs:AttachDisk",
+        "ecs:DetachDisk",
+        "ecs:DescribeDisks",
+        "ecs:CreateDisk",
+        "ecs:ResizeDisk",
+        "ecs:CreateSnapshot",
+        "ecs:DeleteSnapshot",
+        "ecs:CreateAutoSnapshotPolicy",
+        "ecs:ApplyAutoSnapshotPolicy",
+        "ecs:CancelAutoSnapshotPolicy",
+        "ecs:DeleteAutoSnapshotPolicy",
+        "ecs:DescribeAutoSnapshotPolicyEX",
+        "ecs:ModifyAutoSnapshotPolicyEx",
+        "ecs:AddTags",
+        "ecs:DescribeTags",
+        "ecs:DescribeSnapshots",
+        "ecs:ListTagResources",
+        "ecs:TagResources",
+        "ecs:UntagResources",
+        "ecs:ModifyDiskSpec",
+        "ecs:CreateSnapshot",
+        "ecs:DeleteDisk",
+        "ecs:DescribeInstanceAttribute",
+        "ecs:DescribeInstances"
+      ],
+      "Resource": ["*"],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "nas:DescribeFileSystems",
+        "nas:DescribeMountTargets",
+        "nas:AddTags",
+        "nas:DescribeTags",
+        "nas:RemoveTags",
+        "nas:CreateFileSystem",
+        "nas:DeleteFileSystem",
+        "nas:ModifyFileSystem",
+        "nas:CreateMountTarget",
+        "nas:DeleteMountTarget",
+        "nas:ModifyMountTarget",
+        "nas:TagResources",
+        "nas:SetDirQuota",
+        "nas:EnableRecycleBin",
+        "nas:GetRecycleBinAttribute"
+      ],
+      "Resource": ["*"],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "oss:PutBucket",
+        "oss:GetObjectTagging",
+        "oss:ListBuckets",
+        "oss:PutBucketTags",
+        "oss:GetBucketTags",
+        "oss:PutBucketEncryption",
+        "oss:GetBucketInfo"
+      ],
+      "Resource": ["*"],
+      "Effect": "Allow"
+    }
+  ]
 }
 ```
 
@@ -172,19 +167,19 @@ metadata:
   namespace: kube-system
 spec:
   containers:
-  - name: nasplugin
-    image: registry.cn-hangzhou.aliyuncs.com/acs/csi-plugin:<version>
-    env:
-    - name: ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: alibaba-cloud-secret
-          key: accessKeyId
-    - name: ACCESS_KEY_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: alibaba-cloud-secret
-          key: accessKeySecret
+    - name: nasplugin
+      image: registry.cn-hangzhou.aliyuncs.com/acs/csi-plugin:<version>
+      env:
+        - name: ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: alibaba-cloud-secret
+              key: accessKeyId
+        - name: ACCESS_KEY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: alibaba-cloud-secret
+              key: accessKeySecret
 ```
 
 ```yaml
@@ -201,8 +196,8 @@ spec:
     driver: nasplugin.csi.alibabacloud.com
     volumeHandle: nas-volume-handle
     volumeAttributes:
-      server: <nas-id>.cn-hangzhou.nas.aliyuncs.com  # DNS-mountpoint
-      path: <nas-file-system-path>    # Pad in het NAS-bestandssysteem
+      server: <nas-id>.cn-hangzhou.nas.aliyuncs.com # DNS-mountpoint
+      path: <nas-file-system-path> # Pad in het NAS-bestandssysteem
   persistentVolumeReclaimPolicy: Retain
 ```
 
@@ -227,15 +222,15 @@ metadata:
   name: pod-using-alibaba-nas
 spec:
   containers:
-  - name: app-container
-    image: nginx
-    volumeMounts:
-    - name: nas-storage
-      mountPath: "/mnt/nas"
+    - name: app-container
+      image: nginx
+      volumeMounts:
+        - name: nas-storage
+          mountPath: "/mnt/nas"
   volumes:
-  - name: nas-storage
-    persistentVolumeClaim:
-      claimName: alibaba-nas-pvc
+    - name: nas-storage
+      persistentVolumeClaim:
+        claimName: alibaba-nas-pvc
 ```
 
 Door deze eenvoudige stappen te volgen, kun je Alibaba Cloud File Storage snel en efficiënt integreren in je bestaande microservices-infrastructuur.
@@ -244,16 +239,12 @@ Door deze eenvoudige stappen te volgen, kun je Alibaba Cloud File Storage snel e
 
 Alibaba Cloud File Storage biedt een krachtige, schaalbare en veilige oplossing voor bedrijven die werken met een microservices-architectuur. Doordat je dit in combinatie kan gebruiken met zowel een self-managed kubernetes cluster als met een Alibaba ACK cluster kun je dit op verschillende manieren toepassen die bij je gewenste situatie passen. Door de flexibiliteit en integratiemogelijkheden van Alibaba Cloud File Storage kun je eenvoudig gedeelde bestandsopslag implementeren in je microservices-architectuur, zonder dat je je zorgen hoeft te maken over schaalbaarheid, betrouwbaarheid of beveiliging. Door de best practices te volgen en de integratiestappen te volgen, kun je snel aan de slag met het gebruik van Alibaba Cloud File Storage in je eigen microservices-architectuur. Doordat Alibaba Cloud File Storage gebruik maakt van RAM en Policy kun je de toegang makkelijk beheren en beveiligen. Tevens zorg je met de CSI plug-in voor naadloze integratie bij je al bestaande systeem.
 
-```
-
-```yaml
-
 ## Bronnen
 
 - ChatGPT - Onderzoek naar Alibaba Cloud. (10-10-2024). ChatGPT. [ChatGPT gesprek](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
-- Release notes for csi-plugin - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (8-10-2024). [Alibaba csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
-- Connect to an ACK cluster by using kubectl - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (n.d.). [Alibaba ACK guide](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl)
-- Access a NAS file system from a data center by using a NAT gateway - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba NAS using NAT](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
-- Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba Cloud NAS CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
-- What is a RAM user? - Resource Access Management - Alibaba Cloud Documentation Center. (n.d.). [Resource Access Manager](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
-- Introduction to Apsara File Storage NAS - Alibaba Cloud Document Center. (n.d.).[Alibaba Learning Path](https://www.alibabacloud.com/help/en/nas/)
+- Alibaba Cloud - Release notes for csi-plugin - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (8-10-2024). [Alibaba csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
+- Alibaba Cloud - Connect to an ACK cluster by using kubectl - Container Service for Kubernetes - Alibaba Cloud Documentation Center. (n.d.). [Alibaba ACK guide](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl)
+- Alibaba Cloud - Access a NAS file system from a data center by using a NAT gateway - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba NAS using NAT](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
+- Alibaba Cloud - Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud - Apsara File Storage NAS - Alibaba Cloud Documentation Center. (n.d.). [Alibaba Cloud NAS CSI plug-in](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
+- Alibaba Cloud - What is a RAM user? - Resource Access Management - Alibaba Cloud Documentation Center. (n.d.). [Resource Access Manager](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
+- Alibaba Cloud - Introduction to Apsara File Storage NAS - Alibaba Cloud Document Center. (n.d.).[Alibaba Learning Path](https://www.alibabacloud.com/help/en/nas/)
