@@ -12,15 +12,16 @@ _[Jesse Veldmaat, oktober 2024.](https://github.com/hanaim-devops/blog-student-n
   - [Inhoudsopgave](#inhoudsopgave)
   - [Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur](#het-toepassen-van-alibaba-cloud-file-storage-in-een-self-managed-microservices-architectuur)
     - [Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?](#wat-zijn-de-belangrijkste-kenmerken-en-mogelijkheden-van-alibaba-cloud-file-storage)
+      - [Belangrijkste kenmerken:](#belangrijkste-kenmerken)
     - [Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?](#welke-voordelen-biedt-alibaba-cloud-file-storage-ten-opzichte-van-traditionele-file-storage)
     - [Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?](#welke-best-practices-zijn-er-voor-het-gebruik-van-alibaba-cloud-file-storage-in-een-microservices-architectuur)
     - [Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?](#hoe-kan-alibaba-cloud-file-storage-worden-geïntegreerd-in-een-al-bestaande-self-managed-microservices-architectuur)
-      - [**Stap 1: Maak een RAM-gebruiker aan**](#stap-1-maak-een-ram-gebruiker-aan)
-      - [**Stap 2: Koppel de policy aan de RAM-gebruiker**](#stap-2-koppel-de-policy-aan-de-ram-gebruiker)
-      - [**Stap 3: Maak een secret aan in Kubernetes**](#stap-3-maak-een-secret-aan-in-kubernetes)
-      - [**Stap 4: Installeer de CSI-plug-in**](#stap-4-installeer-de-csi-plug-in)
-      - [**Stap 5: Configureer Persistent Volumes en Claims**](#stap-5-configureer-persistent-volumes-en-claims)
-      - [**Stap 6: Voeg de opslag toe aan je Pods**](#stap-6-voeg-de-opslag-toe-aan-je-pods)
+      - [Stap 1: Maak een RAM-gebruiker aan](#stap-1-maak-een-ram-gebruiker-aan)
+      - [Stap 2: Koppel de policy aan de RAM-gebruiker](#stap-2-koppel-de-policy-aan-de-ram-gebruiker)
+      - [Stap 3: Maak een secret aan in Kubernetes](#stap-3-maak-een-secret-aan-in-kubernetes)
+      - [Stap 4: Installeer de CSI-plug-in](#stap-4-installeer-de-csi-plug-in)
+      - [Stap 5: Configureer Persistent Volumes en Claims](#stap-5-configureer-persistent-volumes-en-claims)
+      - [Stap 6: Voeg de opslag toe aan je Pods](#stap-6-voeg-de-opslag-toe-aan-je-pods)
     - [Conclusie](#conclusie)
   - [Bronnen](#bronnen)
 
@@ -39,15 +40,21 @@ Alibaba Cloud File Storage, ook wel bekend als Alibaba Cloud NAS (Network Attach
 De structuur in het voorbeeld illustreert hoe traditionele architecturen kunnen profiteren van een modernere benadering, waarbij bestanden worden ontsloten via een gedeelde opslagoplossing. Dit verbetert de veerkracht van systemen en ondersteunt een naadloze migratie naar schaalbare microservices.
 
 <img src="plaatjes/opzet applicatie.webp" title="Opzet applicatie structuur">
+<br><br>
+Een ander voordeel van het gebruik van Alibaba Cloud File Storage is dat je de opslag ook via verschillende VPC's kunt benaderen, waardoor je een hoge mate van flexibiliteit hebt bij het delen van bestanden tussen verschillende omgevingen. Dit is vooral handig als je werkt met een hybride cloud-architectuur, waarbij je on-premise resources combineert met cloud-resources. Zoals in het voorbeeld hieronder te zien is:
+
+<img src="plaatjes/AlibabaCloudFileExample.png" title="Hybride cloud opzet">
 
 Belangrijke kenmerken van Alibaba Cloud File Storage zijn:
 
-- Schaalbaarheid: De opslag groeit automatisch mee met je behoeften. Dit betekent dat je je geen zorgen hoeft te maken over de capaciteit, zelfs niet bij snelle uitbreiding van je microservices.
-- Flexibele toegang: Alibaba Cloud File Storage ondersteunt meerdere toegangspunten, zoals NFS (Network File System), wat het mogelijk maakt om eenvoudig gedeelde opslag in te zetten en de Container Storage Interface (CSI) plug-in voor Kubernetes.
-- Hoge betrouwbaarheid: Met 99,9999999% (9-nines) databetrouwbaarheid, biedt het een hoge mate van zekerheid dat je data correct is.
-- Hoge beschikbaarheid: Alibaba Cloud File Storage is ontworpen om hoge beschikbaarheid te bieden, met een SLA van 99,9% uptime.
-- Beveiliging: Door functies zoals automatische versleuteling van gegevens tijdens transport en rust, voldoet Alibaba Cloud File Storage aan strikte beveiligingsnormen, wat belangrijk is voor microservices die gevoelige informatie verwerken.
-- Lage kosten: Door het pay-as-you-go-model van Alibaba Cloud, betaal je alleen voor wat je gebruikt, waardoor je kosten laag blijven.
+#### Belangrijkste kenmerken:
+
+- **Schaalbaarheid**: Automatisch meegroeien met opslagbehoeften.
+- **Flexibele toegang**: Ondersteunt NFS en Kubernetes CSI-plug-ins.
+- **Betrouwbaarheid**: 99,9999999% databetrouwbaarheid.
+- **Hoge beschikbaarheid**: SLA van 99,9% uptime.
+- **Beveiliging**: Automatische encryptie en strikte toegangscontrole.
+- **Kostenefficiëntie**: Pay-as-you-go-model.
 
 ### Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?
 
@@ -59,6 +66,8 @@ Alibaba Cloud File Storage biedt enkele duidelijke voordelen ten opzichte van tr
 - Eenvoudige integratie met cloud-native tools: Alibaba Cloud File Storage is volledig geïntegreerd met Alibaba's cloud ecosysteem. Dit maakt het gemakkelijk om opslag te beheren via geautomatiseerde workflows, zoals Kubernetes of DevOps CI/CD-pipelines.
 - Lagere onderhoudskosten: Aangezien je geen fysieke infrastructuur hoeft te onderhouden, elimineert het gebruik van cloud-opslag veel van de overheadkosten en inspanningen die gepaard gaan met traditionele systemen.
 - Betere toegankelijkheid en samenwerking: In een traditionele setup kunnen microservices die over verschillende geografische locaties draaien, beperkte toegang hebben tot on-premise storage. Met cloud-opslag, zoals Alibaba Cloud File Storage, kunnen services overal ter wereld veilig toegang krijgen tot dezelfde data.
+
+Als je kijkt naar onderstaande voorbeeld
 
 ### Welke best practices zijn er voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur?
 
@@ -75,7 +84,7 @@ Het integreren van **Alibaba Cloud File Storage** in een self-managed microservi
 
 Hieronder volgen de stappen om de integratie succesvol uit te voeren.
 
-#### **Stap 1: Maak een RAM-gebruiker aan**
+#### Stap 1: Maak een RAM-gebruiker aan
 
 Start met het aanmaken van een **Resource Access Management (RAM)-gebruiker** in de Alibaba Cloud-console. Deze gebruiker moet specifieke rechten hebben om de File Storage-service te beheren.
 
@@ -100,13 +109,13 @@ Stel een aangepaste policy in die toegang verleent tot de NAS-service. Hier is e
 }
 ```
 
-#### **Stap 2: Koppel de policy aan de RAM-gebruiker**
+#### Stap 2: Koppel de policy aan de RAM-gebruiker
 
 Koppel de aangemaakte policy aan de RAM-gebruiker. Noteer de **AccessKey** en **SecretKey** van deze gebruiker. Deze sleutels zijn nodig voor de authenticatie in Kubernetes.
 
 ---
 
-#### **Stap 3: Maak een secret aan in Kubernetes**
+#### Stap 3: Maak een secret aan in Kubernetes
 
 Om de RAM-gebruiker te authenticeren, maak je een Kubernetes-secret aan met de inloggegevens:
 
@@ -116,7 +125,7 @@ kubectl -n kube-system create secret generic alibaba-cloud-secret --from-literal
 
 ---
 
-#### **Stap 4: Installeer de CSI-plug-in**
+#### Stap 4: Installeer de CSI-plug-in
 
 Installeer de **Container Storage Interface (CSI)-plug-in** van Alibaba Cloud<br>
 Gebruik voor Helm:
@@ -134,7 +143,7 @@ onectl addon install csi-plugin
 
 ---
 
-#### **Stap 5: Configureer Persistent Volumes en Claims**
+#### Stap 5: Configureer Persistent Volumes en Claims
 
 Definieer een **Persistent Volume (PV)** en een **Persistent Volume Claim (PVC)** in Kubernetes. Hiermee kun je opslag eenvoudig toewijzen aan je services.
 
@@ -177,7 +186,7 @@ spec:
 
 ---
 
-#### **Stap 6: Voeg de opslag toe aan je Pods**
+#### Stap 6: Voeg de opslag toe aan je Pods
 
 Om de opslag te gebruiken in je applicaties, voeg je de PVC toe aan je Pod-configuratie:
 
