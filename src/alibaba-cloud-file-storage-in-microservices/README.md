@@ -27,17 +27,17 @@ _[Jesse Veldmaat, oktober 2024.](https://github.com/hanaim-devops/blog-student-n
 
 ## Het toepassen van Alibaba Cloud File Storage in een self-managed microservices-architectuur
 
-Voor dit onderzoek is gekeken naar hoe je Alibaba Cloud File Storage kunt toepassen in een self-managed microservices-architectuur. Hierbij hebben we gekeken naar de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage, de voordelen ten opzichte van traditionele file storage, best practices voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur, en hoe je Alibaba Cloud File Storage kunt integreren in een al bestaande self-managed microservices-architectuur.
+Voor dit onderzoek is gekeken naar hoe je Alibaba Cloud File Storage kunt toepassen in een self-managed microservices-architectuur. Hierbij is er gekeken naar de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage, de voordelen ten opzichte van traditionele file storage, best practices voor het gebruik van Alibaba Cloud File Storage in een microservices-architectuur, en hoe je Alibaba Cloud File Storage kunt integreren in een al bestaande self-managed microservices-architectuur.
 
 In de wereld van moderne softwareontwikkeling spelen cloud-native applicaties en microservices-architecturen een cruciale rol. Bedrijven verplaatsen hun infrastructuur steeds meer naar de cloud vanwege de flexibiliteit, schaalbaarheid en kostenefficiëntie. Een belangrijk aspect van deze transformatie is bestandsopslag: hoe beheer je grote hoeveelheden data die toegankelijk moeten zijn voor meerdere services, verspreid over verschillende omgevingen?
 
-Hier komt Alibaba Cloud File Storage in beeld. Als een van de belangrijkste producten van Alibaba Cloud, biedt het een robuuste oplossing voor bedrijven die op zoek zijn naar schaalbare en betrouwbare opslag in hun microservices-architectuur. In deze blog verkennen we hoe je Alibaba Cloud File Storage kunt toepassen binnen een microservices-architectuur, en bekijken we de voordelen, best practices, en de integratiemogelijkheden.
+Hier komt Alibaba Cloud File Storage in beeld. Als een van de belangrijkste producten van Alibaba Cloud, biedt het een robuuste oplossing voor bedrijven die op zoek zijn naar schaalbare en betrouwbare opslag in hun microservices-architectuur. In deze blog wordt verkend hoe je Alibaba Cloud File Storage kunt toepassen binnen een microservices-architectuur, en bekijken we de voordelen, best practices, en de integratiemogelijkheden.
 
 ### Wat zijn de belangrijkste kenmerken en mogelijkheden van Alibaba Cloud File Storage?
 
 Alibaba Cloud File Storage, ook wel bekend als Alibaba Cloud NAS (Network Attached Storage), biedt gedeelde bestandsopslag die toegankelijk is vanuit verschillende compute-resources zoals Kubernetes-pods, ECI (Elastic Container Instances) en VM’s. Dit maakt het bij uitstek geschikt voor microservices-architecturen, waar verschillende services gelijktijdig toegang moeten hebben tot gedeelde gegevens.
 
-De structuur in het voorbeeld illustreert hoe traditionele architecturen kunnen profiteren van een modernere benadering, waarbij bestanden worden ontsloten via een gedeelde opslagoplossing. Dit verbetert de veerkracht van systemen en ondersteunt een naadloze migratie naar schaalbare microservices.
+De structuur in het voorbeeld illustreert hoe traditionele architecturen kunnen profiteren van een modernere benadering, waarbij bestanden worden ontsloten via een gedeelde opslagoplossing. Dit verbetert de veerkracht van systemen en ondersteunt een naadloze migratie naar schaalbare microservices. ([_Cloud, A., Medium, 2024_](https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4))
 
 <img src="plaatjes/opzet applicatie.webp" title="Opzet applicatie structuur">
 <br><br>
@@ -58,7 +58,7 @@ Belangrijke kenmerken van Alibaba Cloud File Storage zijn:
 
 ### Welke voordelen biedt Alibaba Cloud File Storage ten opzichte van traditionele file storage?
 
-Traditionele opslagoplossingen, zoals fysieke NAS-systemen of on-premise storage, hebben verschillende beperkingen in een cloud- en microservices-gebaseerde architectuur. Deze traditionele oplossingen vereisen vaak veel onderhoud, handmatige schaling, en bieden beperkte flexibiliteit bij het delen van bestanden tussen verschillende services.
+Traditionele opslagoplossingen, zoals fysieke NAS-systemen of on-premise storage, hebben verschillende beperkingen in een cloud- en microservices-gebaseerde architectuur. Deze traditionele oplossingen vereisen vaak veel onderhoud, handmatige schaling, en bieden beperkte flexibiliteit bij het delen van bestanden tussen verschillende services. (Introduction to File Storage NAS, 2024)
 
 Alibaba Cloud File Storage biedt enkele duidelijke voordelen ten opzichte van traditionele file storage-oplossingen:
 
@@ -80,13 +80,13 @@ Het correct toepassen van cloud-gebaseerde bestandsopslag in een microservices-a
 
 ### Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?
 
-Het integreren van **Alibaba Cloud File Storage** in een self-managed microservices-architectuur is eenvoudig en efficiënt. Met behulp van Kubernetes CSI-drivers kun je gedeelde opslag configureren zonder downtime of ingrijpende veranderingen in je infrastructuur.
+Het integreren van **Alibaba Cloud File Storage** in een self-managed microservices-architectuur is eenvoudig en efficiënt. Met behulp van Kubernetes CSI-drivers kun je gedeelde opslag configureren zonder downtime of ingrijpende veranderingen in je infrastructuur. ([_Alibaba Cloud Documentation Center, 2024_](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl))
 
-Hieronder volgen de stappen om de integratie succesvol uit te voeren.
+Hieronder volgen de stappen om de integratie succesvol uit te voeren. 
 
 #### Stap 1: Maak een RAM-gebruiker aan
 
-Start met het aanmaken van een **Resource Access Management (RAM)-gebruiker** in de Alibaba Cloud-console. Deze gebruiker moet specifieke rechten hebben om de File Storage-service te beheren.
+Start met het aanmaken van een **Resource Access Management (RAM)-gebruiker** in de Alibaba Cloud-console. Deze gebruiker moet specifieke rechten hebben om de File Storage-service te beheren. ([_Alibaba Cloud RAM users, 2024_](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users))
 
 Stel een aangepaste policy in die toegang verleent tot de NAS-service. Hier is een voorbeeld van een JSON-configuratie:
 
@@ -145,7 +145,7 @@ onectl addon install csi-plugin
 
 #### Stap 5: Configureer Persistent Volumes en Claims
 
-Definieer een **Persistent Volume (PV)** en een **Persistent Volume Claim (PVC)** in Kubernetes. Hiermee kun je opslag eenvoudig toewijzen aan je services.
+Definieer een **Persistent Volume (PV)** en een **Persistent Volume Claim (PVC)** in Kubernetes. Hiermee kun je opslag eenvoudig toewijzen aan je services. ([_Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud_](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend))
 
 **Voorbeeld PV-configuratie**:
 
@@ -216,11 +216,11 @@ Alibaba Cloud File Storage biedt een krachtige, schaalbare en veilige oplossing 
 
 ## Bronnen
 
-- Onderzoek naar Alibaba Cloud. ChatGPT. Geraadpleegd op 10 Oktober 2024, van [https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
-- Alibaba Cloud Documentation Center. Alibaba Cloud. Geraadpleegd op 8 Oktober 2024 van [https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
-- Cloud, A. Medium . Alibaba Cloud File Storage NAS: Features, Benefits, Comparisons. Medium. Geraadpleegd op 27 december 2024, van [https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4](https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4)
-- Connect to an ACK cluster by using kubectl - Container Service for Kubernetes. Alibaba Cloud Documentation Center. Geraadpleegd op 9 Oktober 2024, van [https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl)
-- Access a NAS file system from a data center by using a NAT gateway - File Storage NAS. Alibaba Cloud Documentation Center. Geraadpleegd op 9 Oktober 2024, van [https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
-- Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud - File Storage NAS. Alibaba Cloud Documentation Center. Geraadpleegd op 10 Oktober 2024, van [https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
-- What is a RAM user? - Resource Access Management. Alibaba Cloud Documentation Center. Geraadpleegd op 10 Oktober 2024, van [https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
-- Introduction to File Storage NAS. Alibaba Cloud Document Center. Geraadpleegd op 10 Oktober 2024, van [https://www.alibabacloud.com/help/en/nas/](https://www.alibabacloud.com/help/en/nas/)
+- OpenAi. _Onderzoek naar Alibaba Cloud_. ChatGPT. Geraadpleegd op 10 Oktober 2024, van [https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414](https://chatgpt.com/share/67057fd3-82d8-8007-b8f8-f11df95f9414).
+- Alibaba Cloud Documentation Center. _Alibaba Cloud Documentation Center_. Alibaba Cloud. Geraadpleegd op 8 Oktober 2024 van [https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin](https://www.alibabacloud.com/help/en/ack/product-overview/csi-plugin)
+- Cloud, A. Medium . _Alibaba Cloud File Storage NAS: Features, Benefits, Comparisons_. Medium. Geraadpleegd op 27 december 2024, van [https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4](https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4)
+- Alibaba Cloud Documentation Center. _Connect to an ACK cluster by using kubectl_. Alibaba Cloud. Geraadpleegd op 9 Oktober 2024, van [https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl)
+- Alibaba Cloud Documentation Center. _Access a NAS file system from a data center by using a NAT gateway_. Alibaba Cloud. Geraadpleegd op 9 Oktober 2024, van [https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway](https://www.alibabacloud.com/help/en/nas/user-guide/access-a-nas-file-system-from-a-data-center-through-a-nat-gateway)
+- Alibaba Cloud Documentation Center. _Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud_. Alibaba Cloud. Geraadpleegd op 10 Oktober 2024, van [https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend)
+- Alibaba Cloud Documentation Center. _What is a RAM user? - Resource Access Management_. Alibaba Cloud. Geraadpleegd op 10 Oktober 2024, van [https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users)
+- Alibaba Cloud Documentation Center. _Introduction to File Storage NAS_. Alibaba Cloud. eraadpleegd op 10 Oktober 2024, van [https://www.alibabacloud.com/help/en/nas/](https://www.alibabacloud.com/help/en/nas/)
