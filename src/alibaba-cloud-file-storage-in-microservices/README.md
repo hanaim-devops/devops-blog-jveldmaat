@@ -37,7 +37,7 @@ Hier komt Alibaba Cloud File Storage in beeld. Als een van de belangrijkste prod
 
 Alibaba Cloud File Storage, ook wel bekend als Alibaba Cloud NAS (Network Attached Storage), biedt gedeelde bestandsopslag die toegankelijk is vanuit verschillende compute-resources zoals Kubernetes-pods, ECI (Elastic Container Instances) en VM’s. Dit maakt het bij uitstek geschikt voor microservices-architecturen, waar verschillende services gelijktijdig toegang moeten hebben tot gedeelde gegevens.
 
-De structuur in het voorbeeld illustreert hoe traditionele architecturen kunnen profiteren van een modernere benadering, waarbij bestanden worden ontsloten via een gedeelde opslagoplossing. Dit verbetert de veerkracht van systemen en ondersteunt een naadloze migratie naar schaalbare microservices. ([_Cloud, A., Medium, 2024_](https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4))
+De structuur in het voorbeeld illustreert hoe traditionele architecturen kunnen profiteren van een modernere benadering, waarbij bestanden worden ontsloten via een gedeelde opslagoplossing. Dit verbetert de veerkracht van systemen en ondersteunt een naadloze migratie naar schaalbare microservices. ([_Cloud, A., Medium, 2021_](https://alibaba-cloud.medium.com/alibaba-cloud-file-storage-nas-part-1-overview-and-explanation-3beb540125b4))
 
 <img src="plaatjes/opzet applicatie.webp" title="Opzet applicatie structuur">
 <br><br>
@@ -80,13 +80,13 @@ Het correct toepassen van cloud-gebaseerde bestandsopslag in een microservices-a
 
 ### Hoe kan Alibaba Cloud File Storage worden geïntegreerd in een al bestaande self-managed microservices-architectuur?
 
-Het integreren van **Alibaba Cloud File Storage** in een self-managed microservices-architectuur is eenvoudig en efficiënt. Met behulp van Kubernetes CSI-drivers kun je gedeelde opslag configureren zonder downtime of ingrijpende veranderingen in je infrastructuur. ([_Alibaba Cloud Documentation Center, 2024_](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl))
+Het integreren van **Alibaba Cloud File Storage** in een self-managed microservices-architectuur is eenvoudig en efficiënt. Met behulp van Kubernetes CSI-drivers kun je gedeelde opslag configureren zonder downtime of ingrijpende veranderingen in je infrastructuur. ([_Alibaba Cloud_](https://www.alibabacloud.com/help/en/ack/serverless-kubernetes/user-guide/connect-to-an-ack-cluster-by-using-kubectl))
 
-Hieronder volgen de stappen om de integratie succesvol uit te voeren. 
+Hieronder volgen de stappen om de integratie succesvol uit te voeren.
 
 #### Stap 1: Maak een RAM-gebruiker aan
 
-Start met het aanmaken van een **Resource Access Management (RAM)-gebruiker** in de Alibaba Cloud-console. Deze gebruiker moet specifieke rechten hebben om de File Storage-service te beheren. ([_Alibaba Cloud RAM users, 2024_](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users))
+Start met het aanmaken van een **Resource Access Management (RAM)-gebruiker** in de Alibaba Cloud-console. Deze gebruiker moet specifieke rechten hebben om de File Storage-service te beheren. ([_Alibaba Cloud_](https://www.alibabacloud.com/help/en/ram/user-guide/overview-of-ram-users))
 
 Stel een aangepaste policy in die toegang verleent tot de NAS-service. Hier is een voorbeeld van een JSON-configuratie:
 
@@ -145,7 +145,7 @@ onectl addon install csi-plugin
 
 #### Stap 5: Configureer Persistent Volumes en Claims
 
-Definieer een **Persistent Volume (PV)** en een **Persistent Volume Claim (PVC)** in Kubernetes. Hiermee kun je opslag eenvoudig toewijzen aan je services. ([_Mount a NAS file system by using the CSI plug-in provided by Alibaba Cloud_](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend))
+Definieer een **Persistent Volume (PV)** en een **Persistent Volume Claim (PVC)** in Kubernetes. Hiermee kun je opslag eenvoudig toewijzen aan je services. ([_Alibaba Cloud_](https://www.alibabacloud.com/help/en/nas/user-guide/mount-nas-by-using-alibaba-cloud-csi-storage-components-recommend))
 
 **Voorbeeld PV-configuratie**:
 
